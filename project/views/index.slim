@@ -1,4 +1,4 @@
-h3 Hello
+p Log in!
 
 form action="login" method="post"
     / p Username <br>
@@ -8,4 +8,12 @@ form action="login" method="post"
     / br
     input type="submit" value="Log in!" 
 
-p = error
+p Create new user!
+form action="create_user" method="post"
+    input type="text" name="username" placeholder="Username"
+    / p Password <br>
+    input type="password" name="password" placeholder="Password"
+    input type="password" name="password_confirm" placeholder="Confirm password"
+    input type="submit" value="Create new user!" 
+
+h3 = error
