@@ -1,1 +1,35 @@
-h1 hello!
+h1 = "hello " + username + "!"
+
+h2 Inventory:
+
+- if inventory != []
+    - invent_list = []
+    - number_list = []
+
+    - inventory.each do |item| 
+        - item = item[0]
+        - if invent_list.include?(item)
+            - i = 0
+            - while i < invent_list.length
+                - if item == invent_list[i]
+                    - number_list[i] += 1
+                    - i = invent_list.length
+                - else
+                    - i += 1
+        - else
+            - invent_list << item
+            - number_list << 1
+
+    - i = 0
+    - while i < invent_list.length
+        ul = invent_list[i] + " [" + number_list[i].to_s + "]"
+        - i += 1
+
+- else
+    p Your inventory is empty!
+
+form action="rand_item" method="post"
+    input type="submit" value="Give me a random item!" 
+
+form action="logout" method="post"
+    input type="submit" value="Log out" 

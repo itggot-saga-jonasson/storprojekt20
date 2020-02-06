@@ -7,6 +7,7 @@ require "sqlite3"
 salt = "stark"
 db = SQLite3::Database.open("db/data.db")
 error = ""
+result = ""
 
 get("/") do
     slim(:index, locals:{error: error})
@@ -60,7 +61,25 @@ post("/create_user") do
 end
 
 get("/start") do
-    # work in progress
+    user_id = result
+    if user_id.empty?
+        error = "Log in first!"
+        redirect to ("/")
+    end
+    username = db.execute("SELECT username FROM users WHERE user_id=?", user_id)[0][0]
+    inventory = db.execute("SELECT item_name FROM inventory WHERE user_id=?", user_id)
 
-    slim(:start)
+    slim(:start, locals:{username: username, inventory: inventory})
+end
+
+post("/logout")do
+    result = ""
+    redirect to ("/")
+end
+
+post("/rand_item") do
+    items = db.execute("SELECT item_id, item, description FROM item_list")
+    rand_item = items.sample
+    db.execute("INSERT INTO inventory(item_id, item_name, user_id) VALUES (?,?,?)",[rand_item[0], rand_item[1], result])
+    redirect to ("/start")
 end
