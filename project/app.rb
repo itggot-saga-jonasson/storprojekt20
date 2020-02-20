@@ -67,8 +67,8 @@ get("/start") do
         redirect to ("/")
     end
     username = db.execute("SELECT username FROM users WHERE user_id=?", user_id)[0][0]
-    inventory = db.execute("SELECT item_name FROM inventory WHERE user_id=?", user_id)
-
+    inventory = db.execute("SELECT item_name, item_id FROM inventory WHERE user_id=?", user_id)
+    # p inventory
     slim(:start, locals:{username: username, inventory: inventory})
 end
 
@@ -81,5 +81,12 @@ post("/rand_item") do
     items = db.execute("SELECT item_id, item, description FROM item_list")
     rand_item = items.sample
     db.execute("INSERT INTO inventory(item_id, item_name, user_id) VALUES (?,?,?)",[rand_item[0], rand_item[1], result])
+    redirect to ("/start")
+end
+
+post("/delete_item") do
+    id = params["deleteme"]
+    db.execute("DELETE FROM inventory WHERE item_id=? AND user_id=? LIMIT 1", [id, result])
+
     redirect to ("/start")
 end
