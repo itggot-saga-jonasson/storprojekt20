@@ -1,40 +1,50 @@
-h1 = "hello " + username + "!"
+.wrapper
 
-h2 Inventory:
+    h1 = "hello " + username + "!"
 
-- if inventory != []
-    - invent_list = []
-    - id_list = []
-    - number_list = []
+    .boxes
+        .textarea
+            p = current_story
 
-    - inventory.each do |item| 
-        - id = item[1]
-        - item = item[0]
-        - if invent_list.include?(item)
-            - i = 0
-            - while i < invent_list.length
-                - if item == invent_list[i]
-                    - number_list[i] += 1
-                    - i = invent_list.length
-                - else
+            form action="update_game" method="post"
+                button name="choice" type="submit" value=path_id[0] = choices[0]
+
+        .inventory
+            h2 Inventory:
+
+            - if inventory != []
+                - invent_list = []
+                - id_list = []
+                - number_list = []
+
+                - inventory.each do |item| 
+                    - id = item[1]
+                    - item = item[0]
+                    - if invent_list.include?(item)
+                        - i = 0
+                        - while i < invent_list.length
+                            - if item == invent_list[i]
+                                - number_list[i] += 1
+                                - i = invent_list.length
+                            - else
+                                - i += 1
+                    - else
+                        - invent_list << item
+                        - id_list << id
+                        - number_list << 1
+
+                - i = 0
+                - while i < invent_list.length
+                    ul = invent_list[i] + " [" + number_list[i].to_s + "]"
+                    form action="delete_item" method="post"
+                        button name="deleteme" type="submit" value=id_list[i] Toss away
                     - i += 1
-        - else
-            - invent_list << item
-            - id_list << id
-            - number_list << 1
 
-    - i = 0
-    - while i < invent_list.length
-        ul = invent_list[i] + " [" + number_list[i].to_s + "]"
-        form action="delete_item" method="post"
-            button name="deleteme" type="submit" value=id_list[i] Toss away
-        - i += 1
+            - else
+                p Your inventory is empty!
 
-- else
-    p Your inventory is empty!
+            form action="rand_item" method="post"
+                input type="submit" value="Give me a random item!" 
 
-form action="rand_item" method="post"
-    input type="submit" value="Give me a random item!" 
-
-form action="logout" method="post"
-    input type="submit" value="Log out" 
+            form action="logout" method="post"
+                input type="submit" value="Log out" 

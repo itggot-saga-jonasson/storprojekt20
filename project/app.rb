@@ -68,8 +68,20 @@ get("/start") do
     end
     username = db.execute("SELECT username FROM users WHERE user_id=?", user_id)[0][0]
     inventory = db.execute("SELECT item_name, item_id FROM inventory WHERE user_id=?", user_id)
-    # p inventory
-    slim(:start, locals:{username: username, inventory: inventory})
+    progress = db.execute("SELECT story_progress_id FROM user_progress WHERE user_id=?", user_id)
+    
+    if progress.empty?
+        progress = 1
+        db.execute("INSERT INTO user_progress(user_id, story_progress_id) VALUES (?,0)", user_id)
+    end
+    p progress
+
+    current_story = db.execute("SELECT text FROM story WHERE id=?", progress)
+    current_story = current_story[0]
+
+    choices = db.execute("SELECT text FROM choices WHERE story_id=?", progress)
+    path_id = db.execute("SELECT path_id FROM choices WHERE story_id=?", progress)
+    slim(:start, locals:{username: username, inventory: inventory, current_story: current_story, choices: choices, path_id: path_id})
 end
 
 post("/logout")do
@@ -86,7 +98,15 @@ end
 
 post("/delete_item") do
     id = params["deleteme"]
-    db.execute("DELETE FROM inventory WHERE item_id=? AND user_id=? LIMIT 1", [id, result])
+    row_id = db.execute("SELECT ROWID FROM inventory WHERE item_id=? AND user_id=?", [id, result])
+    p row_id
+    db.execute("DELETE FROM inventory WHERE ROWID=?", row_id[-1])
+    redirect to ("/start")
+end
 
+post("/update_game") do
+    id = params["choice"]
+    p id
+    db.execute("UPDATE user_progress SET story_progress_id=? WHERE user_id=?", [id, result])
     redirect to ("/start")
 end
