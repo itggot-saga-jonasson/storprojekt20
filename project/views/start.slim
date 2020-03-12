@@ -4,10 +4,16 @@
 
     .boxes
         .textarea
-            p = current_story
+            p = current_story[0][0]
 
-            form action="update_game" method="post"
-                button name="choice" type="submit" value=path_id[0] = choices[0]
+            - i = 0
+            - path_id.each do |num|
+                - num = num[0]
+                - num.to_i
+                form action="update_game" method="post"
+                    button name="choice" type="submit" value=num = choices[i][0]
+                - i += 1
+
 
         .inventory
             h2 Inventory:

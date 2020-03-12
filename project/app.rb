@@ -3,7 +3,7 @@ require "sinatra"
 require "slim"
 require "sqlite3"
 
-
+login_attempts = 0
 salt = "stark"
 db = SQLite3::Database.open("db/data.db")
 error = ""
@@ -17,20 +17,18 @@ post("/login") do
     error = ""
     username = params["username"]
     password = params["password"]
-    # p username
-    # p password
-    # p BCrypt::Password.create(password + salt)
+
     result = db.execute("SELECT user_id FROM users WHERE username=?", username)
-    # p result
+    
     if result.empty?
         error = "user doesn't exist"
-        # p "it not be working"
     else
         password_digest = db.execute("SELECT password_digest FROM users WHERE user_id=?", result)[0][0]
         if BCrypt::Password.new(password_digest) == password + salt
             redirect to ("/start")
         else
             error = "incorrect password"
+            login_attempts += 1
         end
         
     end
@@ -56,7 +54,6 @@ post("/create_user") do
         end
 
     end
-
     redirect to ("/")
 end
 
@@ -72,15 +69,20 @@ get("/start") do
     
     if progress.empty?
         progress = 1
-        db.execute("INSERT INTO user_progress(user_id, story_progress_id) VALUES (?,0)", user_id)
+        db.execute("INSERT INTO user_progress(user_id, story_progress_id) VALUES (?,1)", user_id)
     end
     p progress
 
     current_story = db.execute("SELECT text FROM story WHERE id=?", progress)
-    current_story = current_story[0]
+    if current_story.empty?
+        progress = 0
+        current_story = db.execute("SELECT text FROM story WHERE id=0")
+    end
+    current_story = current_story
 
     choices = db.execute("SELECT text FROM choices WHERE story_id=?", progress)
     path_id = db.execute("SELECT path_id FROM choices WHERE story_id=?", progress)
+    p path_id
     slim(:start, locals:{username: username, inventory: inventory, current_story: current_story, choices: choices, path_id: path_id})
 end
 
@@ -89,12 +91,15 @@ post("/logout")do
     redirect to ("/")
 end
 
+
+
 post("/rand_item") do
     items = db.execute("SELECT item_id, item, description FROM item_list")
     rand_item = items.sample
     db.execute("INSERT INTO inventory(item_id, item_name, user_id) VALUES (?,?,?)",[rand_item[0], rand_item[1], result])
     redirect to ("/start")
 end
+
 
 post("/delete_item") do
     id = params["deleteme"]
@@ -106,7 +111,11 @@ end
 
 post("/update_game") do
     id = params["choice"]
-    p id
+    # p id
+    # id.to_s
+    # id.delete("[")
+    # id.delete("]")
+    # p id + "<- update 2"
     db.execute("UPDATE user_progress SET story_progress_id=? WHERE user_id=?", [id, result])
     redirect to ("/start")
 end
