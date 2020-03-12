@@ -64,14 +64,13 @@ get("/start") do
         redirect to ("/")
     end
     username = db.execute("SELECT username FROM users WHERE user_id=?", user_id)[0][0]
-    inventory = db.execute("SELECT item_name, item_id FROM inventory WHERE user_id=?", user_id)
+    inventory = db.execute("SELECT item_name, item_id, item_amount FROM inventory WHERE user_id=?", user_id)
     progress = db.execute("SELECT story_progress_id FROM user_progress WHERE user_id=?", user_id)
     
     if progress.empty?
         progress = 1
         db.execute("INSERT INTO user_progress(user_id, story_progress_id) VALUES (?,1)", user_id)
     end
-    p progress
 
     current_story = db.execute("SELECT text FROM story WHERE id=?", progress)
     if current_story.empty?
@@ -82,7 +81,6 @@ get("/start") do
 
     choices = db.execute("SELECT text FROM choices WHERE story_id=?", progress)
     path_id = db.execute("SELECT path_id FROM choices WHERE story_id=?", progress)
-    p path_id
     slim(:start, locals:{username: username, inventory: inventory, current_story: current_story, choices: choices, path_id: path_id})
 end
 
@@ -96,26 +94,28 @@ end
 post("/rand_item") do
     items = db.execute("SELECT item_id, item, description FROM item_list")
     rand_item = items.sample
-    db.execute("INSERT INTO inventory(item_id, item_name, user_id) VALUES (?,?,?)",[rand_item[0], rand_item[1], result])
+    if db.execute("SELECT item_amount FROM inventory WHERE user_id=? AND item_id=?", [result, rand_item[0]]).empty?
+        db.execute("INSERT INTO inventory(item_id, item_name, user_id, item_amount) VALUES (?,?,?,1)",[rand_item[0], rand_item[1], result])
+    else
+        db.execute("UPDATE inventory SET item_amount=item_amount+1 WHERE user_id=? AND item_id=?", [result, rand_item[0]])
+    end
     redirect to ("/start")
 end
 
 
 post("/delete_item") do
     id = params["deleteme"]
-    row_id = db.execute("SELECT ROWID FROM inventory WHERE item_id=? AND user_id=?", [id, result])
-    p row_id
-    db.execute("DELETE FROM inventory WHERE ROWID=?", row_id[-1])
+    item_amount = db.execute("SELECT item_amount FROM inventory WHERE item_id=? AND user_id=?", [id, result])
+    if item_amount[0][0] == 1
+        db.execute("DELETE FROM inventory WHERE item_id=? AND user_id=?", [id, result])
+    else
+        db.execute("UPDATE inventory SET item_amount=item_amount-1 WHERE item_id=? AND user_id=?", [id, result])
+    end
     redirect to ("/start")
 end
 
 post("/update_game") do
     id = params["choice"]
-    # p id
-    # id.to_s
-    # id.delete("[")
-    # id.delete("]")
-    # p id + "<- update 2"
     db.execute("UPDATE user_progress SET story_progress_id=? WHERE user_id=?", [id, result])
     redirect to ("/start")
 end
