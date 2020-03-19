@@ -2,6 +2,7 @@ require "bcrypt"
 require "sinatra"
 require "slim"
 require "sqlite3"
+require_relative "model.rb"
 
 login_attempts = 0
 salt = "stark"
