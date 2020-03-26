@@ -1,12 +1,10 @@
+require_relative "model.rb"
 require "bcrypt"
 require "sinatra"
 require "slim"
 require "sqlite3"
-require_relative "model.rb"
 
 login_attempts = 0
-salt = "stark"
-db = SQLite3::Database.open("db/data.db")
 error = ""
 result = ""
 
@@ -19,17 +17,15 @@ post("/login") do
     username = params["username"]
     password = params["password"]
 
-    result = db.execute("SELECT user_id FROM users WHERE username=?", username)
+    result = dbselect(:user_id, :users, :username, username)
     
     if result.empty?
         error = "user doesn't exist"
     else
-        password_digest = db.execute("SELECT password_digest FROM users WHERE user_id=?", result)[0][0]
-        if BCrypt::Password.new(password_digest) == password + salt
+        if password_compare(password, result) == true
             redirect to ("/start")
         else
             error = "incorrect password"
-            login_attempts += 1
         end
         
     end
@@ -42,13 +38,13 @@ post("/create_user") do
     username = params["username"]
     password = params["password"]
     password_confirm = params["password_confirm"]
+
     if password != password_confirm
         error = "Passwords don't match."
-    else
-        user_exist = db.execute("SELECT user_id FROM users WHERE username=?", username)
+    else 
+        user_exist = dbselect(:user_id, :users, :username, username)
         if user_exist.empty?
-            password_digest = BCrypt::Password.create(password+salt)
-            db.execute("INSERT INTO users(username, password_digest) VALUES (?,?)", [username, password_digest])
+            dbinsert(:users, [:username, :password_digest], [username, bcrypt(password)])
             error = "user successfully created!"
         else
             error = "Username taken."
@@ -64,24 +60,24 @@ get("/start") do
         error = "Log in first!"
         redirect to ("/")
     end
-    username = db.execute("SELECT username FROM users WHERE user_id=?", user_id)[0][0]
+    username = dbselect(:username, :users, :user_id, user_id)[0][0]
     inventory = db.execute("SELECT item_name, item_id, item_amount FROM inventory WHERE user_id=?", user_id)
-    progress = db.execute("SELECT story_progress_id FROM user_progress WHERE user_id=?", user_id)
+    # inventory = dbselect([:item_name, :item_id, :item_amount], :inventory, :user_id, user_id)
+    progress = dbselect(:story_progress_id, :user_progress, :user_id, user_id)
     
     if progress.empty?
         progress = 1
-        db.execute("INSERT INTO user_progress(user_id, story_progress_id) VALUES (?,1)", user_id)
+        dbinsert(:user_progress, [:user_id, :story_progress_id], [user_id, 1])
     end
 
-    current_story = db.execute("SELECT text FROM story WHERE id=?", progress)
+    current_story = dbselect(:text, :story, :id, progress)
     if current_story.empty?
         progress = 0
         current_story = db.execute("SELECT text FROM story WHERE id=0")
     end
     current_story = current_story
-
-    choices = db.execute("SELECT text FROM choices WHERE story_id=?", progress)
-    path_id = db.execute("SELECT path_id FROM choices WHERE story_id=?", progress)
+    choices = dbselect(:text, :choices, :story_id, progress)
+    path_id = dbselect(:path_id, :choices, :story_id, progress)
     slim(:start, locals:{username: username, inventory: inventory, current_story: current_story, choices: choices, path_id: path_id})
 end
 
