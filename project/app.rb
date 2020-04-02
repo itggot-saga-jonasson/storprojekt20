@@ -61,8 +61,7 @@ get("/start") do
         redirect to ("/")
     end
     username = dbselect(:username, :users, :user_id, user_id)[0][0]
-    inventory = db.execute("SELECT item_name, item_id, item_amount FROM inventory WHERE user_id=?", user_id)
-    # inventory = dbselect([:item_name, :item_id, :item_amount], :inventory, :user_id, user_id)
+    inventory = dbselect([:item_name, :item_id, :item_amount], :inventory, :user_id, user_id)
     progress = dbselect(:story_progress_id, :user_progress, :user_id, user_id)
     
     if progress.empty?
@@ -73,7 +72,7 @@ get("/start") do
     current_story = dbselect(:text, :story, :id, progress)
     if current_story.empty?
         progress = 0
-        current_story = db.execute("SELECT text FROM story WHERE id=0")
+        current_story = dbselect(:text, :story, :id, 0)
     end
     current_story = current_story
     choices = dbselect(:text, :choices, :story_id, progress)
@@ -89,12 +88,14 @@ end
 
 
 post("/rand_item") do
-    items = db.execute("SELECT item_id, item, description FROM item_list")
+    items = dbselect2([:item_id, :item, :description], :item_list,)
     rand_item = items.sample
-    if db.execute("SELECT item_amount FROM inventory WHERE user_id=? AND item_id=?", [result, rand_item[0]]).empty?
-        db.execute("INSERT INTO inventory(item_id, item_name, user_id, item_amount) VALUES (?,?,?,1)",[rand_item[0], rand_item[1], result])
+    # if db.execute("SELECT item_amount FROM inventory WHERE user_id=? AND item_id=?", [result, rand_item[0]]).empty?
+    if dbselect(:item_amount, :inventory, [:user_id, :item_id], [result, rand_item[0]]).empty?
+        dbinsert(:inventory, [:item_id, :item_name, :user_id, :item_amount], [rand_item[0], rand_item[1], result, 1])
     else
-        db.execute("UPDATE inventory SET item_amount=item_amount+1 WHERE user_id=? AND item_id=?", [result, rand_item[0]])
+        item_amount = dbselect(:item_amount, :inventory, [:user_id, :item_id], [result, rand_item[0]])
+        db.execute("UPDATE inventory SET item_amount=? WHERE user_id=? AND item_id=?", [item_amount+1, result, rand_item[0]])
     end
     redirect to ("/start")
 end
