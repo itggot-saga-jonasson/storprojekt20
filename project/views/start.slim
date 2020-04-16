@@ -7,11 +7,28 @@
             p = current_story[0][0]
 
             - i = 0
-            - path_id.each do |num|
+            - choice_id.each do |num|
                 - num = num[0]
                 - num.to_i
-                form action="update_game" method="post"
-                    button name="choice" type="submit" value=num = choices[i][0]
+                - p require_item[i]
+                - if require_item[i][0] != nil
+                    - has_item = false
+                    - i2 = 0
+                    - while i2 < inventory.length
+                        - if inventory[i2][1] == require_item[i][0]
+                            - if inventory[i2][2] >= require_item[i][1]
+                                - has_item = true
+                        - i2 +=1
+                
+                    - if has_item == true
+                        form action="update_game" method="post"
+                            button name="choice" type="submit" value=num = choices[i][0]
+                    - else
+                        form action="update_game" method="post"
+                            button disabled="disabled" name="choice" type="submit" value=num = choices[i][0]
+                - else
+                    form action="update_game" method="post"
+                        button name="choice" type="submit" value=num = choices[i][0]
                 - i += 1
 
 

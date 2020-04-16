@@ -76,8 +76,11 @@ get("/start") do
     end
     current_story = current_story
     choices = dbselect(:text, :choices, :story_id, progress)
-    path_id = dbselect(:path_id, :choices, :story_id, progress)
-    slim(:start, locals:{username: username, inventory: inventory, current_story: current_story, choices: choices, path_id: path_id})
+    choice_id = dbselect(:choice_id, :choices, :story_id, progress)
+    require_item = dbselect([:require_item, :require_amount], :choices, :story_id, progress)
+    # p require_item
+    # p choices
+    slim(:start, locals:{username: username, inventory: inventory, current_story: current_story, choices: choices, choice_id: choice_id, require_item: require_item})
 end
 
 post("/logout")do
@@ -90,12 +93,11 @@ end
 post("/rand_item") do
     items = dbselect2([:item_id, :item, :description], :item_list,)
     rand_item = items.sample
-    # if db.execute("SELECT item_amount FROM inventory WHERE user_id=? AND item_id=?", [result, rand_item[0]]).empty?
     if dbselect(:item_amount, :inventory, [:user_id, :item_id], [result, rand_item[0]]).empty?
         dbinsert(:inventory, [:item_id, :item_name, :user_id, :item_amount], [rand_item[0], rand_item[1], result, 1])
     else
         item_amount = dbselect(:item_amount, :inventory, [:user_id, :item_id], [result, rand_item[0]])
-        db.execute("UPDATE inventory SET item_amount=? WHERE user_id=? AND item_id=?", [item_amount+1, result, rand_item[0]])
+        dbupdate(:inventory, :item_amount, [:user_id, :item_id], [item_amount[0][0]+1, result, rand_item[0]])
     end
     redirect to ("/start")
 end
@@ -103,17 +105,45 @@ end
 
 post("/delete_item") do
     id = params["deleteme"]
-    item_amount = db.execute("SELECT item_amount FROM inventory WHERE item_id=? AND user_id=?", [id, result])
+    item_amount = dbselect(:item_amount, :inventory, [:item_id, :user_id], [id, result])
     if item_amount[0][0] == 1
-        db.execute("DELETE FROM inventory WHERE item_id=? AND user_id=?", [id, result])
+        dbdelete(:inventory, [:item_id, :user_id], [id, result])
     else
-        db.execute("UPDATE inventory SET item_amount=item_amount-1 WHERE item_id=? AND user_id=?", [id, result])
+        dbupdate(:inventory, :item_amount, [:item_id, :user_id], [item_amount[0][0]-1, id, result])
     end
     redirect to ("/start")
 end
 
 post("/update_game") do
     id = params["choice"]
-    db.execute("UPDATE user_progress SET story_progress_id=? WHERE user_id=?", [id, result])
+    path_id = dbselect(:path_id, :choices, :choice_id, id)
+    give_item = dbselect(:give_item, :choices, :choice_id, id)
+    require_item = dbselect(:require_item, :choices, :choice_id, id)
+    dbupdate(:user_progress, :story_progress_id, :user_id, [path_id, result])
+
+    if require_item[0][0] != nil
+        require_amount = dbselect(:require_amount, :choices, :choice_id, id)
+        item_amount = dbselect(:item_amount, :inventory, [:item_id, :user_id], [require_item, result])
+        n = item_amount[0][0] - require_amount[0][0]
+
+        if n == 0
+            dbdelete(:inventory, [:item_id, :user_id], [require_item, result])
+        else
+            dbupdate(:inventory, :item_amount, [:item_id, :user_id], [n, require_item, result])
+        end
+    end
+
+    if give_item[0][0] != nil
+        give_amount = dbselect(:give_amount, :choices, :choice_id, id)
+        item_amount = dbselect(:item_amount, :inventory, [:item_id, :user_id], [give_item, result])
+        
+        if item_amount == []
+            name = dbselect(:item, :item_list, :item_id, give_item)
+            dbinsert(:inventory, [:item_id, :item_name, :user_id, :item_amount], [give_item[0][0], name[0][0], result, give_amount[0][0]])
+        else
+            n = give_amount[0][0] + item_amount[0][0]
+            dbupdate(:inventory, :item_amount, [:item_id, :user_id], [n, give_item, result])
+        end
+    end
     redirect to ("/start")
 end

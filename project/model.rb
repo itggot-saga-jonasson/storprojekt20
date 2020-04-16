@@ -70,13 +70,69 @@ def dbinsert(table, variables, variable_names)
         i += 1
     end
 
-    return db.execute("INSERT INTO #{table}(#{variables}) VALUES (#{marks})", [variable_names])
+    v = ""
+    i = 0
+    while i < variables.length
+        v += variables[i].to_s 
+        i += 1
+        if i < variables.length
+            v += ", "
+        end
+    end
+
+    return db.execute("INSERT INTO #{table}(#{v}) VALUES (#{marks})", variable_names)
 end
 
-def dbupdate(table, variables, condition, variable_names)
+
+def dbupdate(table, variables, condition, names)
+    if variables.kind_of?(Array) == false
+        v = variables.to_s + "=?"
+    else
+        v = ""
+        i = 0
+        while i < variables.length
+            v += variables[i].to_s + "=?"
+            i += 1
+            if i < variables.length
+                v += ", "
+            end
+        end
+    end
+
+    if condition.kind_of?(Array) == false
+        c = condition.to_s + "=?"
+    else
+        c = ""
+        i = 0
+        while i < condition.length
+            c += condition[i].to_s + "=?"
+            i += 1
+            if i < condition.length
+                c += " AND "
+            end
+        end
+    end
+
+    return db.execute("UPDATE #{table} SET #{v} WHERE #{c}", names)
+end
 
 
-    return db.execute("UPDATE #{table} SET #{variables} WHERE #{condition}", variable_names)
+def dbdelete(table, condition, condition_name)
+    if condition.kind_of?(Array) == false
+        c = condition.to_s + "=?"
+    else
+        c = ""
+        i = 0
+        while i < condition.length
+            c += condition[i].to_s + "=?"
+            i += 1
+            if i < condition.length
+                c += " AND "
+            end
+        end
+    end
+
+    return db.execute("DELETE FROM #{table} WHERE #{c}", condition_name)
 end
 
 
