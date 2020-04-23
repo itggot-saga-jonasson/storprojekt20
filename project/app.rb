@@ -8,10 +8,18 @@ login_attempts = 0
 error = ""
 result = ""
 
+
+
 get("/") do
     slim(:index, locals:{error: error})
 end
 
+
+
+# Lets an already existing user log in.
+#
+# @param [String] username, entered username
+# @param [String] password, entered password
 post("/login") do
     error = ""
     username = params["username"]
@@ -33,6 +41,11 @@ post("/login") do
     redirect to ("/")
 end
 
+# Creates a new user
+#
+# @param [String] username, entered username
+# @param [String] password, entered password
+# @param [String] password_confirm, password confirmation (used to make sure the passwords match)
 post("/create_user") do
     error = ""
     username = params["username"]
