@@ -9,7 +9,7 @@ error = ""
 result = ""
 
 
-
+# Start page.
 get("/") do
     slim(:index, locals:{error: error})
 end
@@ -41,7 +41,7 @@ post("/login") do
     redirect to ("/")
 end
 
-# Creates a new user
+# Creates a new user.
 #
 # @param [String] username, entered username
 # @param [String] password, entered password
@@ -67,6 +67,7 @@ post("/create_user") do
     redirect to ("/")
 end
 
+# Logged in page. 
 get("/start") do
     user_id = result
     if user_id.empty?
@@ -91,18 +92,18 @@ get("/start") do
     choices = dbselect(:text, :choices, :story_id, progress)
     choice_id = dbselect(:choice_id, :choices, :story_id, progress)
     require_item = dbselect([:require_item, :require_amount], :choices, :story_id, progress)
-    # p require_item
-    # p choices
     slim(:start, locals:{username: username, inventory: inventory, current_story: current_story, choices: choices, choice_id: choice_id, require_item: require_item})
 end
 
+
+# Logs out the current user.
 post("/logout")do
     result = ""
     redirect to ("/")
 end
 
 
-
+# Gives user a random item.
 post("/rand_item") do
     items = dbselect2([:item_id, :item, :description], :item_list,)
     rand_item = items.sample
@@ -115,7 +116,7 @@ post("/rand_item") do
     redirect to ("/start")
 end
 
-
+# Deletes a chosen item from the user's inventory
 post("/delete_item") do
     id = params["deleteme"]
     item_amount = dbselect(:item_amount, :inventory, [:item_id, :user_id], [id, result])
@@ -127,6 +128,8 @@ post("/delete_item") do
     redirect to ("/start")
 end
 
+# Updates story progression after the user makes a choice.
+# @param [Integer] choice, The ID of the choice just made
 post("/update_game") do
     id = params["choice"]
     path_id = dbselect(:path_id, :choices, :choice_id, id)

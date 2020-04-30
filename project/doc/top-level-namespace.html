@@ -112,7 +112,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Encrypts a password.</p>
+</div></span>
   
 </li>
 
@@ -134,7 +136,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Path to database.</p>
+</div></span>
   
 </li>
 
@@ -156,7 +160,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Removes values from table that match the given condition(s).</p>
+</div></span>
   
 </li>
 
@@ -178,7 +184,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Inserts new values into a table.</p>
+</div></span>
   
 </li>
 
@@ -200,7 +208,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns values from a table that match the given condition(s).</p>
+</div></span>
   
 </li>
 
@@ -222,7 +232,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns values from a table, no conditions.</p>
+</div></span>
   
 </li>
 
@@ -244,7 +256,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Updates values in a table that match the given condition(s).</p>
+</div></span>
   
 </li>
 
@@ -266,7 +280,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Start page.</p>
+</div></span>
   
 </li>
 
@@ -288,7 +304,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Logged in page.</p>
+</div></span>
   
 </li>
 
@@ -310,7 +328,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Compares given password with stored encrypted password.</p>
+</div></span>
   
 </li>
 
@@ -356,7 +376,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Deletes a chosen item from the user&#39;s inventory.</p>
+</div></span>
   
 </li>
 
@@ -402,7 +424,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Logs out the current user.</p>
+</div></span>
   
 </li>
 
@@ -424,7 +448,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Gives user a random item.</p>
+</div></span>
   
 </li>
 
@@ -446,7 +472,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Updates story progression after the user makes a choice.</p>
+</div></span>
   
 </li>
 
@@ -468,7 +496,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Name of salt.</p>
+</div></span>
   
 </li>
 
@@ -491,18 +521,31 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Encrypts a password</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-140
-141
-142</pre>
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcrypt'>bcrypt</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span>
     <span class='kw'>return</span> <span class='const'>BCrypt</span><span class='op'>::</span><span class='const'>Password</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='op'>+</span><span class='id identifier rubyid_salt'>salt</span><span class='rparen'>)</span>
@@ -521,18 +564,31 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Path to database</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-5
 6
-7</pre>
+7
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 5</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_db'>db</span>
     <span class='kw'>return</span> <span class='const'>SQLite3</span><span class='op'>::</span><span class='const'>Database</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>db/data.db</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -551,16 +607,25 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Removes values from table that match the given condition(s)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-120
-121
-122
-123
 124
 125
 126
@@ -573,10 +638,14 @@
 133
 134
 135
-136</pre>
+136
+137
+138
+139
+140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dbdelete'>dbdelete</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='comma'>,</span> <span class='id identifier rubyid_condition'>condition</span><span class='comma'>,</span> <span class='id identifier rubyid_condition_name'>condition_name</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_condition'>condition</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='kw'>false</span>
@@ -609,16 +678,25 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Inserts new values into a table</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-65
-66
-67
-68
 69
 70
 71
@@ -634,10 +712,14 @@
 81
 82
 83
-84</pre>
+84
+85
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dbinsert'>dbinsert</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='comma'>,</span> <span class='id identifier rubyid_variables'>variables</span><span class='comma'>,</span> <span class='id identifier rubyid_variable_names'>variable_names</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='int'>1</span>
@@ -673,14 +755,25 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns values from a table that match the given condition(s)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-17
-18
 19
 20
 21
@@ -708,10 +801,12 @@
 43
 44
 45
-46</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dbselect'>dbselect</span><span class='lparen'>(</span><span class='id identifier rubyid_find'>find</span><span class='comma'>,</span> <span class='id identifier rubyid_table'>table</span><span class='comma'>,</span> <span class='id identifier rubyid_condition'>condition</span><span class='comma'>,</span> <span class='id identifier rubyid_condition_name'>condition_name</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_find'>find</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='kw'>false</span>
@@ -757,15 +852,25 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns values from a table, no conditions</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-48
-49
-50
 51
 52
 53
@@ -778,10 +883,13 @@
 60
 61
 62
-63</pre>
+63
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dbselect2'>dbselect2</span><span class='lparen'>(</span><span class='id identifier rubyid_find'>find</span><span class='comma'>,</span> <span class='id identifier rubyid_table'>table</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_find'>find</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='kw'>false</span>
@@ -813,16 +921,25 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Updates values in a table that match the given condition(s)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-87
-88
-89
-90
 91
 92
 93
@@ -849,10 +966,14 @@
 114
 115
 116
-117</pre>
+117
+118
+119
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dbupdate'>dbupdate</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='comma'>,</span> <span class='id identifier rubyid_variables'>variables</span><span class='comma'>,</span> <span class='id identifier rubyid_condition'>condition</span><span class='comma'>,</span> <span class='id identifier rubyid_names'>names</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_variables'>variables</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='kw'>false</span>
@@ -899,7 +1020,20 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Start page.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -929,13 +1063,25 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Logged in page.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-70
 71
 72
 73
@@ -961,11 +1107,10 @@
 93
 94
 95
-96
-97</pre>
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 71</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/start</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_user_id'>user_id</span> <span class='op'>=</span> <span class='id identifier rubyid_result'>result</span>
@@ -991,9 +1136,7 @@
     <span class='id identifier rubyid_choices'>choices</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:text</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:story_id</span><span class='comma'>,</span> <span class='id identifier rubyid_progress'>progress</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_choice_id'>choice_id</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:choice_id</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:story_id</span><span class='comma'>,</span> <span class='id identifier rubyid_progress'>progress</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_require_item'>require_item</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='symbol'>:require_item</span><span class='comma'>,</span> <span class='symbol'>:require_amount</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:story_id</span><span class='comma'>,</span> <span class='id identifier rubyid_progress'>progress</span><span class='rparen'>)</span>
-    <span class='comment'># p require_item
-</span>    <span class='comment'># p choices
-</span>    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:start</span><span class='comma'>,</span> <span class='label'>locals:</span><span class='lbrace'>{</span><span class='label'>username:</span> <span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='label'>inventory:</span> <span class='id identifier rubyid_inventory'>inventory</span><span class='comma'>,</span> <span class='label'>current_story:</span> <span class='id identifier rubyid_current_story'>current_story</span><span class='comma'>,</span> <span class='label'>choices:</span> <span class='id identifier rubyid_choices'>choices</span><span class='comma'>,</span> <span class='label'>choice_id:</span> <span class='id identifier rubyid_choice_id'>choice_id</span><span class='comma'>,</span> <span class='label'>require_item:</span> <span class='id identifier rubyid_require_item'>require_item</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:start</span><span class='comma'>,</span> <span class='label'>locals:</span><span class='lbrace'>{</span><span class='label'>username:</span> <span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='label'>inventory:</span> <span class='id identifier rubyid_inventory'>inventory</span><span class='comma'>,</span> <span class='label'>current_story:</span> <span class='id identifier rubyid_current_story'>current_story</span><span class='comma'>,</span> <span class='label'>choices:</span> <span class='id identifier rubyid_choices'>choices</span><span class='comma'>,</span> <span class='label'>choice_id:</span> <span class='id identifier rubyid_choice_id'>choice_id</span><span class='comma'>,</span> <span class='label'>require_item:</span> <span class='id identifier rubyid_require_item'>require_item</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1009,24 +1152,37 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Compares given password with stored encrypted password</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-145
-146
-147
-148
 149
 150
 151
 152
-153</pre>
+153
+154
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 145</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_password_compare'>password_compare</span><span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_password_digest'>password_digest</span> <span class='op'>=</span> <span class='id identifier rubyid_db'><span class='object_link'><a href="#db-instance_method" title="#db (method)">db</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT password_digest FROM users WHERE user_id=?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
@@ -1054,7 +1210,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Creates a new user</p>
+<p>Creates a new user.</p>
 
 
   </div>
@@ -1180,13 +1336,25 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Deletes a chosen item from the user&#39;s inventory</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-119
 120
 121
 122
@@ -1195,10 +1363,11 @@
 125
 126
 127
-128</pre>
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 119</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 120</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/delete_item</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deleteme</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -1337,19 +1506,32 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Logs out the current user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-99
 100
 101
-102</pre>
+102
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 100</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/logout</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='kw'>do</span>
     <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
@@ -1369,13 +1551,25 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Gives user a random item.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-106
 107
 108
 109
@@ -1385,10 +1579,11 @@
 113
 114
 115
-116</pre>
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 107</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/rand_item</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_items'>items</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect2'><span class='object_link'><a href="#dbselect2-instance_method" title="#dbselect2 (method)">dbselect2</a></span></span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:item</span><span class='comma'>,</span> <span class='symbol'>:description</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:item_list</span><span class='comma'>,</span><span class='rparen'>)</span>
@@ -1415,15 +1610,45 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Updates story progression after the user makes a choice.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>choice,</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The ID of the choice just made</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-130
-131
-132
 133
 134
 135
@@ -1453,10 +1678,13 @@
 159
 160
 161
-162</pre>
+162
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 133</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/update_game</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>choice</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -1505,18 +1733,31 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Name of salt</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-9
-10
-11</pre>
+11
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_salt'>salt</span>
     <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stark</span><span class='tstring_end'>&quot;</span></span>
@@ -1531,7 +1772,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Apr 23 10:53:55 2020 by
+  Generated on Fri Apr 24 18:05:40 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.5.1).
 </div>
