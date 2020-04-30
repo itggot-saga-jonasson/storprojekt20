@@ -1,17 +1,10 @@
 require "sqlite3"
 require "bcrypt"
-salt = "stark"
 
 # Path to database
 def db
     return SQLite3::Database.open("db/data.db")
 end
-
-# Name of salt
-def salt
-    return "stark"
-end
-
 
 
 
@@ -142,13 +135,13 @@ end
 
 # Encrypts a password
 def bcrypt(string)
-    return BCrypt::Password.create(string+salt)
+    return BCrypt::Password.create(string)
 end
 
 # Compares given password with stored encrypted password
 def password_compare(password, user_id)
     password_digest = db.execute("SELECT password_digest FROM users WHERE user_id=?", user_id)[0][0]
-    if BCrypt::Password.new(password_digest) == password + salt
+    if BCrypt::Password.new(password_digest) == password
         return true
     else
         return false

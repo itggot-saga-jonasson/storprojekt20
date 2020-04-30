@@ -52,3 +52,15 @@
 
             form action="logout" method="post"
                 input type="submit" value="Log out" 
+
+    - p user_id
+    - if user_id[0][0] == 1
+        h3 List of users:
+        .users
+            - i = 0
+            - while i < users.length
+                - if users[i][0] != 1
+                    ul = users[i][1]
+                    form action="delete_user" method="post"
+                        button name="deleteuser" type="submit" value=users[i][0] Delete user
+                - i += 1

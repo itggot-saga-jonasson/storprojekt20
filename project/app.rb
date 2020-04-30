@@ -54,15 +54,20 @@ post("/create_user") do
 
     if password != password_confirm
         error = "Passwords don't match."
+    elsif password.length < 6
+        error = "Password must be at least six characters long."
     else 
-        user_exist = dbselect(:user_id, :users, :username, username)
-        if user_exist.empty?
-            dbinsert(:users, [:username, :password_digest], [username, bcrypt(password)])
-            error = "user successfully created!"
+        if username.include? " "
+            error = "Username cannot include spaces."
         else
-            error = "Username taken."
+            user_exist = dbselect(:user_id, :users, :username, username)
+            if user_exist.empty?
+                dbinsert(:users, [:username, :password_digest], [username, bcrypt(password)])
+                error = "user successfully created!"
+            else
+                error = "Username taken."
+            end
         end
-
     end
     redirect to ("/")
 end
@@ -88,11 +93,15 @@ get("/start") do
         progress = 0
         current_story = dbselect(:text, :story, :id, 0)
     end
+
     current_story = current_story
     choices = dbselect(:text, :choices, :story_id, progress)
     choice_id = dbselect(:choice_id, :choices, :story_id, progress)
     require_item = dbselect([:require_item, :require_amount], :choices, :story_id, progress)
-    slim(:start, locals:{username: username, inventory: inventory, current_story: current_story, choices: choices, choice_id: choice_id, require_item: require_item})
+
+    users = dbselect2([:user_id, :username], :users)
+
+    slim(:start, locals:{username: username, user_id: user_id, users: users, inventory: inventory, current_story: current_story, choices: choices, choice_id: choice_id, require_item: require_item})
 end
 
 
@@ -125,6 +134,14 @@ post("/delete_item") do
     else
         dbupdate(:inventory, :item_amount, [:item_id, :user_id], [item_amount[0][0]-1, id, result])
     end
+    redirect to ("/start")
+end
+
+post("/delete_user") do
+    id = params["deleteuser"]
+    dbdelete(:users, :user_id, id)
+    dbdelete(:inventory, :user_id, id)
+
     redirect to ("/start")
 end
 

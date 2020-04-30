@@ -25,3 +25,10 @@ h1{
     background-color: white;
     margin: 10px;
 }
+
+.users{
+    background-color: azure;
+    width: 50%;
+    height: 40%;
+    overflow: scroll;
+}
