@@ -46,7 +46,7 @@ end
 # @param [String] username, entered username
 # @param [String] password, entered password
 # @param [String] password_confirm, password confirmation (used to make sure the passwords match)
-post("/create_user") do
+post("/user/new") do
     error = ""
     username = params["username"]
     password = params["password"]
@@ -126,7 +126,7 @@ post("/rand_item") do
 end
 
 # Deletes a chosen item from the user's inventory
-post("/delete_item") do
+delete("/item/delete") do
     id = params["deleteme"]
     item_amount = dbselect(:item_amount, :inventory, [:item_id, :user_id], [id, result])
     if item_amount[0][0] == 1
@@ -137,7 +137,7 @@ post("/delete_item") do
     redirect to ("/start")
 end
 
-post("/delete_user") do
+delete("/user/delete") do
     id = params["deleteuser"]
     dbdelete(:users, :user_id, id)
     dbdelete(:inventory, :user_id, id)
@@ -147,7 +147,7 @@ end
 
 # Updates story progression after the user makes a choice.
 # @param [Integer] choice, The ID of the choice just made
-post("/update_game") do
+patch("/game/edit") do
     id = params["choice"]
     path_id = dbselect(:path_id, :choices, :choice_id, id)
     give_item = dbselect(:give_item, :choices, :choice_id, id)

@@ -21,13 +21,16 @@
                         - i2 +=1
                 
                     - if has_item == true
-                        form action="update_game" method="post"
+                        form action="/game/edit" method="post"
+                            <input type="hidden" name="_method" value="patch">
                             button name="choice" type="submit" value=num = choices[i][0]
                     - else
-                        form action="update_game" method="post"
+                        form action="/game/edit" method="post"
+                            <input type="hidden" name="_method" value="patch">
                             button disabled="disabled" name="choice" type="submit" value=num = choices[i][0]
                 - else
-                    form action="update_game" method="post"
+                    form action="/game/edit" method="post"
+                        <input type="hidden" name="_method" value="patch">
                         button name="choice" type="submit" value=num = choices[i][0]
                 - i += 1
 
@@ -41,7 +44,8 @@
                     - id = item[1].to_s
                     - amount = item[2].to_s
                     ul = name + " [" + amount + "]"
-                    form action="delete_item" method="post"
+                    form action="item/delete" method="post"
+                        <input type="hidden" name="_method" value="delete">
                         button name="deleteme" type="submit" value=id Toss away
 
             - else
@@ -53,7 +57,6 @@
             form action="logout" method="post"
                 input type="submit" value="Log out" 
 
-    - p user_id
     - if user_id[0][0] == 1
         h3 List of users:
         .users
@@ -61,6 +64,7 @@
             - while i < users.length
                 - if users[i][0] != 1
                     ul = users[i][1]
-                    form action="delete_user" method="post"
+                    form action="user/delete" method="post"
+                        <input type="hidden" name="_method" value="delete">
                         button name="deleteuser" type="submit" value=users[i][0] Delete user
                 - i += 1
