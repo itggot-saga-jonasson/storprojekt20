@@ -1,6 +1,11 @@
 .wrapper
 
     h1 = "hello " + username + "!"
+    form action="/users/edit" method="get"
+        button name="id" type="submit" value=user_id Change your user?
+    
+    form action="logout" method="post"
+        input type="submit" value="Log out" 
 
     .boxes
         .textarea
@@ -10,7 +15,7 @@
             - choice_id.each do |num|
                 - num = num[0]
                 - num.to_i
-                - p require_item[i]
+                / - p require_item[i]
                 - if require_item[i][0] != nil
                     - has_item = false
                     - i2 = 0
@@ -22,15 +27,12 @@
                 
                     - if has_item == true
                         form action="/game/edit" method="post"
-                            <input type="hidden" name="_method" value="patch">
                             button name="choice" type="submit" value=num = choices[i][0]
                     - else
                         form action="/game/edit" method="post"
-                            <input type="hidden" name="_method" value="patch">
                             button disabled="disabled" name="choice" type="submit" value=num = choices[i][0]
                 - else
                     form action="/game/edit" method="post"
-                        <input type="hidden" name="_method" value="patch">
                         button name="choice" type="submit" value=num = choices[i][0]
                 - i += 1
 
@@ -44,9 +46,10 @@
                     - id = item[1].to_s
                     - amount = item[2].to_s
                     ul = name + " [" + amount + "]"
-                    form action="item/delete" method="post"
-                        <input type="hidden" name="_method" value="delete">
+                    form action="inventory/delete" method="post"
+                        input type="hidden" name="user_id" value=user_id
                         button name="deleteme" type="submit" value=id Toss away
+                            
 
             - else
                 p Your inventory is empty!
@@ -54,17 +57,33 @@
             form action="rand_item" method="post"
                 input type="submit" value="Give me a random item!" 
 
-            form action="logout" method="post"
-                input type="submit" value="Log out" 
+            
+        
+            - if admin == 1
+                .item_give
+                    form action="login" method="post"
+                        input type="number" name="id" placeholder="Item ID"
+                        input type="number" name="amount" placeholder="Item amount"
+                        input type="submit" value="Give me some items!" 
+                    
+                    table
+                        tr
+                            th ID
+                            th Name
+                        - items.each do |a|
+                            tr
+                                th = a[0]
+                                th = a[1]
 
-    - if user_id[0][0] == 1
+
+
+    - if admin == 1
         h3 List of users:
         .users
             - i = 0
             - while i < users.length
                 - if users[i][0] != 1
                     ul = users[i][1]
-                    form action="user/delete" method="post"
-                        <input type="hidden" name="_method" value="delete">
+                    form action="users/delete" method="post"
                         button name="deleteuser" type="submit" value=users[i][0] Delete user
                 - i += 1

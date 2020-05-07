@@ -6,6 +6,7 @@ require "sqlite3"
 
 login_attempts = 0
 error = ""
+error_message = ""
 result = ""
 
 
@@ -62,7 +63,7 @@ post("/user/new") do
         else
             user_exist = dbselect(:user_id, :users, :username, username)
             if user_exist.empty?
-                dbinsert(:users, [:username, :password_digest], [username, bcrypt(password)])
+                dbinsert(:users, [:username, :password_digest, :admin], [username, bcrypt(password), 0])
                 error = "user successfully created!"
             else
                 error = "Username taken."
@@ -100,8 +101,11 @@ get("/start") do
     require_item = dbselect([:require_item, :require_amount], :choices, :story_id, progress)
 
     users = dbselect2([:user_id, :username], :users)
+    items = dbselect2([:item_id, :item], :item_list)
+    admin = dbselect(:admin, :users, :user_id, result)[0][0]
+    user_id = user_id[0][0]
 
-    slim(:start, locals:{username: username, user_id: user_id, users: users, inventory: inventory, current_story: current_story, choices: choices, choice_id: choice_id, require_item: require_item})
+    slim(:start, locals:{username: username, user_id: user_id, users: users, inventory: inventory, current_story: current_story, choices: choices, choice_id: choice_id, require_item: require_item, items: items, admin: admin})
 end
 
 
@@ -126,18 +130,29 @@ post("/rand_item") do
 end
 
 # Deletes a chosen item from the user's inventory
-delete("/item/delete") do
+# @param [Integer] deleteme, the ID of the item
+# @param [Integer] user_id, the ID of the user
+post("/inventory/delete") do
     id = params["deleteme"]
-    item_amount = dbselect(:item_amount, :inventory, [:item_id, :user_id], [id, result])
-    if item_amount[0][0] == 1
-        dbdelete(:inventory, [:item_id, :user_id], [id, result])
+    user_id = params["user_id"].to_i
+
+    if result[0][0] == user_id
+        item_amount = dbselect(:item_amount, :inventory, [:item_id, :user_id], [id, result])
+        if item_amount[0][0] == 1
+            dbdelete(:inventory, [:item_id, :user_id], [id, result])
+        else
+            dbupdate(:inventory, :item_amount, [:item_id, :user_id], [item_amount[0][0]-1, id, result])
+        end
+        redirect to ("/start")
     else
-        dbupdate(:inventory, :item_amount, [:item_id, :user_id], [item_amount[0][0]-1, id, result])
+        error_message = "You don't seem to match the user making that request. What do you think you're doing?"
+        redirect to ("/error")
     end
-    redirect to ("/start")
 end
 
-delete("/user/delete") do
+# Deletes a select user
+# @param [Integer] deleteuser, The ID of the select user
+post("/users/delete") do
     id = params["deleteuser"]
     dbdelete(:users, :user_id, id)
     dbdelete(:inventory, :user_id, id)
@@ -145,9 +160,15 @@ delete("/user/delete") do
     redirect to ("/start")
 end
 
+get("/users/edit") do
+
+    slim(:"users/edit", locals:{})
+end
+
+
 # Updates story progression after the user makes a choice.
 # @param [Integer] choice, The ID of the choice just made
-patch("/game/edit") do
+post("/game/edit") do
     id = params["choice"]
     path_id = dbselect(:path_id, :choices, :choice_id, id)
     give_item = dbselect(:give_item, :choices, :choice_id, id)
@@ -179,4 +200,10 @@ patch("/game/edit") do
         end
     end
     redirect to ("/start")
+end
+
+get("/error") do
+    result = ""
+
+    slim(:error, locals:{error_message: error_message})
 end

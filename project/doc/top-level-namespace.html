@@ -266,6 +266,54 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="top-level-namespace.html#DELETE__item_delete-instance_method" title="#DELETE /item/delete (instance method)">#<strong>DELETE /item/delete</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Deletes a chosen item from the user&#39;s inventory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="top-level-namespace.html#DELETE__user_delete-instance_method" title="#DELETE /user/delete (instance method)">#<strong>DELETE /user/delete</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Deletes a select user.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="top-level-namespace.html#GET__-instance_method" title="#GET / (instance method)">#<strong>GET /</strong>  &#x21d2; Object </a>
     
 
@@ -338,7 +386,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="top-level-namespace.html#POST__create_user-instance_method" title="#POST /create_user (instance method)">#<strong>POST /create_user</strong>  &#x21d2; Object </a>
+      <a href="top-level-namespace.html#PATCH__game_edit-instance_method" title="#PATCH /game/edit (instance method)">#<strong>PATCH /game/edit</strong>  &#x21d2; Object </a>
     
 
     
@@ -353,31 +401,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Creates a new user.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="top-level-namespace.html#POST__delete_item-instance_method" title="#POST /delete_item (instance method)">#<strong>POST /delete_item</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Deletes a chosen item from the user&#39;s inventory.</p>
+<p>Updates story progression after the user makes a choice.</p>
 </div></span>
   
 </li>
@@ -458,7 +482,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="top-level-namespace.html#POST__update_game-instance_method" title="#POST /update_game (instance method)">#<strong>POST /update_game</strong>  &#x21d2; Object </a>
+      <a href="top-level-namespace.html#POST__user_new-instance_method" title="#POST /user/new (instance method)">#<strong>POST /user/new</strong>  &#x21d2; Object </a>
     
 
     
@@ -473,31 +497,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Updates story progression after the user makes a choice.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="top-level-namespace.html#salt-instance_method" title="#salt (instance method)">#<strong>salt</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Name of salt.</p>
+<p>Creates a new user.</p>
 </div></span>
   
 </li>
@@ -540,15 +540,15 @@
       <pre class="lines">
 
 
-144
-145
-146</pre>
+137
+138
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 137</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bcrypt'>bcrypt</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span>
-    <span class='kw'>return</span> <span class='const'>BCrypt</span><span class='op'>::</span><span class='const'>Password</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='op'>+</span><span class='id identifier rubyid_salt'>salt</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='const'>BCrypt</span><span class='op'>::</span><span class='const'>Password</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -583,12 +583,12 @@
       <pre class="lines">
 
 
+5
 6
-7
-8</pre>
+7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_db'>db</span>
     <span class='kw'>return</span> <span class='const'>SQLite3</span><span class='op'>::</span><span class='const'>Database</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>db/data.db</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -626,6 +626,13 @@
       <pre class="lines">
 
 
+117
+118
+119
+120
+121
+122
+123
 124
 125
 126
@@ -635,17 +642,10 @@
 130
 131
 132
-133
-134
-135
-136
-137
-138
-139
-140</pre>
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dbdelete'>dbdelete</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='comma'>,</span> <span class='id identifier rubyid_condition'>condition</span><span class='comma'>,</span> <span class='id identifier rubyid_condition_name'>condition_name</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_condition'>condition</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='kw'>false</span>
@@ -697,6 +697,13 @@
       <pre class="lines">
 
 
+62
+63
+64
+65
+66
+67
+68
 69
 70
 71
@@ -709,17 +716,10 @@
 78
 79
 80
-81
-82
-83
-84
-85
-86
-87
-88</pre>
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dbinsert'>dbinsert</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='comma'>,</span> <span class='id identifier rubyid_variables'>variables</span><span class='comma'>,</span> <span class='id identifier rubyid_variable_names'>variable_names</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='int'>1</span>
@@ -774,6 +774,13 @@
       <pre class="lines">
 
 
+12
+13
+14
+15
+16
+17
+18
 19
 20
 21
@@ -796,17 +803,10 @@
 38
 39
 40
-41
-42
-43
-44
-45
-46
-47
-48</pre>
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dbselect'>dbselect</span><span class='lparen'>(</span><span class='id identifier rubyid_find'>find</span><span class='comma'>,</span> <span class='id identifier rubyid_table'>table</span><span class='comma'>,</span> <span class='id identifier rubyid_condition'>condition</span><span class='comma'>,</span> <span class='id identifier rubyid_condition_name'>condition_name</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_find'>find</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='kw'>false</span>
@@ -871,6 +871,13 @@
       <pre class="lines">
 
 
+44
+45
+46
+47
+48
+49
+50
 51
 52
 53
@@ -879,17 +886,10 @@
 56
 57
 58
-59
-60
-61
-62
-63
-64
-65
-66</pre>
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dbselect2'>dbselect2</span><span class='lparen'>(</span><span class='id identifier rubyid_find'>find</span><span class='comma'>,</span> <span class='id identifier rubyid_table'>table</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_find'>find</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='kw'>false</span>
@@ -940,6 +940,13 @@
       <pre class="lines">
 
 
+84
+85
+86
+87
+88
+89
+90
 91
 92
 93
@@ -963,17 +970,10 @@
 111
 112
 113
-114
-115
-116
-117
-118
-119
-120
-121</pre>
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dbupdate'>dbupdate</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='comma'>,</span> <span class='id identifier rubyid_variables'>variables</span><span class='comma'>,</span> <span class='id identifier rubyid_condition'>condition</span><span class='comma'>,</span> <span class='id identifier rubyid_names'>names</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_variables'>variables</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='kw'>false</span>
@@ -1005,6 +1005,134 @@
     <span class='kw'>end</span>
 
     <span class='kw'>return</span> <span class='id identifier rubyid_db'><span class='object_link'><a href="#db-instance_method" title="#db (method)">db</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UPDATE </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_table'>table</span><span class='embexpr_end'>}</span><span class='tstring_content'> SET </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_v'>v</span><span class='embexpr_end'>}</span><span class='tstring_content'> WHERE </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_c'>c</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_names'>names</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="DELETE__item_delete-instance_method">
+  
+    #<strong>DELETE /item/delete</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Deletes a chosen item from the user&#39;s inventory</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app.rb', line 129</span>
+
+<span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/item/delete</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deleteme</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_item_amount'>item_amount</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:item_amount</span><span class='comma'>,</span> <span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_item_amount'>item_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span>
+        <span class='id identifier rubyid_dbdelete'><span class='object_link'><a href="#dbdelete-instance_method" title="#dbdelete (method)">dbdelete</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+        <span class='id identifier rubyid_dbupdate'><span class='object_link'><a href="#dbupdate-instance_method" title="#dbupdate (method)">dbupdate</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='symbol'>:item_amount</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_item_amount'>item_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/start</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="DELETE__user_delete-instance_method">
+  
+    #<strong>DELETE /user/delete</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Deletes a select user</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>deleteuser,</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The ID of the select user</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+142
+143
+144
+145
+146
+147
+148</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app.rb', line 142</span>
+
+<span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/user/delete</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deleteuser</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_dbdelete'><span class='object_link'><a href="#dbdelete-instance_method" title="#dbdelete (method)">dbdelete</a></span></span><span class='lparen'>(</span><span class='symbol'>:users</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_dbdelete'><span class='object_link'><a href="#dbdelete-instance_method" title="#dbdelete (method)">dbdelete</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/start</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1082,11 +1210,6 @@
       <pre class="lines">
 
 
-71
-72
-73
-74
-75
 76
 77
 78
@@ -1107,10 +1230,19 @@
 93
 94
 95
-96</pre>
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 76</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/start</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_user_id'>user_id</span> <span class='op'>=</span> <span class='id identifier rubyid_result'>result</span>
@@ -1132,11 +1264,15 @@
         <span class='id identifier rubyid_progress'>progress</span> <span class='op'>=</span> <span class='int'>0</span>
         <span class='id identifier rubyid_current_story'>current_story</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:text</span><span class='comma'>,</span> <span class='symbol'>:story</span><span class='comma'>,</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='int'>0</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
+
     <span class='id identifier rubyid_current_story'>current_story</span> <span class='op'>=</span> <span class='id identifier rubyid_current_story'>current_story</span>
     <span class='id identifier rubyid_choices'>choices</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:text</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:story_id</span><span class='comma'>,</span> <span class='id identifier rubyid_progress'>progress</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_choice_id'>choice_id</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:choice_id</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:story_id</span><span class='comma'>,</span> <span class='id identifier rubyid_progress'>progress</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_require_item'>require_item</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='symbol'>:require_item</span><span class='comma'>,</span> <span class='symbol'>:require_amount</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:story_id</span><span class='comma'>,</span> <span class='id identifier rubyid_progress'>progress</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:start</span><span class='comma'>,</span> <span class='label'>locals:</span><span class='lbrace'>{</span><span class='label'>username:</span> <span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='label'>inventory:</span> <span class='id identifier rubyid_inventory'>inventory</span><span class='comma'>,</span> <span class='label'>current_story:</span> <span class='id identifier rubyid_current_story'>current_story</span><span class='comma'>,</span> <span class='label'>choices:</span> <span class='id identifier rubyid_choices'>choices</span><span class='comma'>,</span> <span class='label'>choice_id:</span> <span class='id identifier rubyid_choice_id'>choice_id</span><span class='comma'>,</span> <span class='label'>require_item:</span> <span class='id identifier rubyid_require_item'>require_item</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_users'>users</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect2'><span class='object_link'><a href="#dbselect2-instance_method" title="#dbselect2 (method)">dbselect2</a></span></span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='symbol'>:user_id</span><span class='comma'>,</span> <span class='symbol'>:username</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:users</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:start</span><span class='comma'>,</span> <span class='label'>locals:</span><span class='lbrace'>{</span><span class='label'>username:</span> <span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='comma'>,</span> <span class='label'>users:</span> <span class='id identifier rubyid_users'>users</span><span class='comma'>,</span> <span class='label'>inventory:</span> <span class='id identifier rubyid_inventory'>inventory</span><span class='comma'>,</span> <span class='label'>current_story:</span> <span class='id identifier rubyid_current_story'>current_story</span><span class='comma'>,</span> <span class='label'>choices:</span> <span class='id identifier rubyid_choices'>choices</span><span class='comma'>,</span> <span class='label'>choice_id:</span> <span class='id identifier rubyid_choice_id'>choice_id</span><span class='comma'>,</span> <span class='label'>require_item:</span> <span class='id identifier rubyid_require_item'>require_item</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1171,22 +1307,22 @@
       <pre class="lines">
 
 
+142
+143
+144
+145
+146
+147
+148
 149
-150
-151
-152
-153
-154
-155
-156
-157</pre>
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'model.rb', line 142</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_password_compare'>password_compare</span><span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_password_digest'>password_digest</span> <span class='op'>=</span> <span class='id identifier rubyid_db'><span class='object_link'><a href="#db-instance_method" title="#db (method)">db</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT password_digest FROM users WHERE user_id=?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
-    <span class='kw'>if</span> <span class='const'>BCrypt</span><span class='op'>::</span><span class='const'>Password</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_password_digest'>password_digest</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='id identifier rubyid_password'>password</span> <span class='op'>+</span> <span class='id identifier rubyid_salt'><span class='object_link'><a href="#salt-instance_method" title="#salt (method)">salt</a></span></span>
+    <span class='kw'>if</span> <span class='const'>BCrypt</span><span class='op'>::</span><span class='const'>Password</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_password_digest'>password_digest</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='id identifier rubyid_password'>password</span>
         <span class='kw'>return</span> <span class='kw'>true</span>
     <span class='kw'>else</span>
         <span class='kw'>return</span> <span class='kw'>false</span>
@@ -1199,9 +1335,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="POST__create_user-instance_method">
+  <h3 class="signature " id="PATCH__game_edit-instance_method">
   
-    #<strong>POST /create_user</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>PATCH /game/edit</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1210,7 +1346,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Creates a new user.</p>
+<p>Updates story progression after the user makes a choice.</p>
 
 
   </div>
@@ -1221,48 +1357,16 @@
   
     <li>
       
-        <span class='name'>username,</span>
+        <span class='name'>choice,</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>entered username</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>password,</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>entered password</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>password_confirm,</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>password confirmation (used to make sure the passwords match)</p>
+<p>The ID of the choice just made</p>
 </div>
       
     </li>
@@ -1278,104 +1382,73 @@
       <pre class="lines">
 
 
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68</pre>
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 152</span>
 
-<span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/create_user</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_error'>error</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_username'>username</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>username</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_password'>password</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>password</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_password_confirm'>password_confirm</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>password_confirm</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_patch'>patch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/game/edit</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>choice</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_path_id'>path_id</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:path_id</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:choice_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_give_item'>give_item</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:give_item</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:choice_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_require_item'>require_item</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:require_item</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:choice_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_dbupdate'><span class='object_link'><a href="#dbupdate-instance_method" title="#dbupdate (method)">dbupdate</a></span></span><span class='lparen'>(</span><span class='symbol'>:user_progress</span><span class='comma'>,</span> <span class='symbol'>:story_progress_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_path_id'>path_id</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
 
-    <span class='kw'>if</span> <span class='id identifier rubyid_password'>password</span> <span class='op'>!=</span> <span class='id identifier rubyid_password_confirm'>password_confirm</span>
-        <span class='id identifier rubyid_error'>error</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Passwords don&#39;t match.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>else</span> 
-        <span class='id identifier rubyid_user_exist'>user_exist</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:user_id</span><span class='comma'>,</span> <span class='symbol'>:users</span><span class='comma'>,</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span>
-        <span class='kw'>if</span> <span class='id identifier rubyid_user_exist'>user_exist</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-            <span class='id identifier rubyid_dbinsert'><span class='object_link'><a href="#dbinsert-instance_method" title="#dbinsert (method)">dbinsert</a></span></span><span class='lparen'>(</span><span class='symbol'>:users</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:password_digest</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='id identifier rubyid_bcrypt'><span class='object_link'><a href="#bcrypt-instance_method" title="#bcrypt (method)">bcrypt</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-            <span class='id identifier rubyid_error'>error</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user successfully created!</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_require_item'>require_item</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='kw'>nil</span>
+        <span class='id identifier rubyid_require_amount'>require_amount</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:require_amount</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:choice_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_item_amount'>item_amount</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:item_amount</span><span class='comma'>,</span> <span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_require_item'>require_item</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='id identifier rubyid_item_amount'>item_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='id identifier rubyid_require_amount'>require_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+
+        <span class='kw'>if</span> <span class='id identifier rubyid_n'>n</span> <span class='op'>==</span> <span class='int'>0</span>
+            <span class='id identifier rubyid_dbdelete'><span class='object_link'><a href="#dbdelete-instance_method" title="#dbdelete (method)">dbdelete</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_require_item'>require_item</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
         <span class='kw'>else</span>
-            <span class='id identifier rubyid_error'>error</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Username taken.</span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_dbupdate'><span class='object_link'><a href="#dbupdate-instance_method" title="#dbupdate (method)">dbupdate</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='symbol'>:item_amount</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='id identifier rubyid_require_item'>require_item</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
         <span class='kw'>end</span>
-
     <span class='kw'>end</span>
-    <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="POST__delete_item-instance_method">
-  
-    #<strong>POST /delete_item</strong>  &#x21d2; <tt>Object</tt> 
-  
 
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Deletes a chosen item from the user&#39;s inventory</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 120</span>
-
-<span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/delete_item</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deleteme</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_item_amount'>item_amount</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:item_amount</span><span class='comma'>,</span> <span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_item_amount'>item_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span>
-        <span class='id identifier rubyid_dbdelete'><span class='object_link'><a href="#dbdelete-instance_method" title="#dbdelete (method)">dbdelete</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-    <span class='kw'>else</span>
-        <span class='id identifier rubyid_dbupdate'><span class='object_link'><a href="#dbupdate-instance_method" title="#dbupdate (method)">dbupdate</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='symbol'>:item_amount</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_item_amount'>item_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_give_item'>give_item</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='kw'>nil</span>
+        <span class='id identifier rubyid_give_amount'>give_amount</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:give_amount</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:choice_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_item_amount'>item_amount</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:item_amount</span><span class='comma'>,</span> <span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_give_item'>give_item</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+        
+        <span class='kw'>if</span> <span class='id identifier rubyid_item_amount'>item_amount</span> <span class='op'>==</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+            <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:item</span><span class='comma'>,</span> <span class='symbol'>:item_list</span><span class='comma'>,</span> <span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='id identifier rubyid_give_item'>give_item</span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_dbinsert'><span class='object_link'><a href="#dbinsert-instance_method" title="#dbinsert (method)">dbinsert</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:item_name</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='comma'>,</span> <span class='symbol'>:item_amount</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_give_item'>give_item</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='comma'>,</span> <span class='id identifier rubyid_give_amount'>give_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+        <span class='kw'>else</span>
+            <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='id identifier rubyid_give_amount'>give_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='id identifier rubyid_item_amount'>item_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+            <span class='id identifier rubyid_dbupdate'><span class='object_link'><a href="#dbupdate-instance_method" title="#dbupdate (method)">dbupdate</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='symbol'>:item_amount</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='id identifier rubyid_give_item'>give_item</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
     <span class='kw'>end</span>
     <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/start</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -1525,13 +1598,13 @@
       <pre class="lines">
 
 
-100
-101
-102
-103</pre>
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 109</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/logout</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='kw'>do</span>
     <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
@@ -1570,20 +1643,20 @@
       <pre class="lines">
 
 
-107
-108
-109
-110
-111
-112
-113
-114
-115
 116
-117</pre>
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 116</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/rand_item</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_items'>items</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect2'><span class='object_link'><a href="#dbselect2-instance_method" title="#dbselect2 (method)">dbselect2</a></span></span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:item</span><span class='comma'>,</span> <span class='symbol'>:description</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:item_list</span><span class='comma'>,</span><span class='rparen'>)</span>
@@ -1602,9 +1675,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="POST__update_game-instance_method">
+  <h3 class="signature " id="POST__user_new-instance_method">
   
-    #<strong>POST /update_game</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>POST /user/new</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1613,7 +1686,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Updates story progression after the user makes a choice.</p>
+<p>Creates a new user.</p>
 
 
   </div>
@@ -1624,16 +1697,48 @@
   
     <li>
       
-        <span class='name'>choice,</span>
+        <span class='name'>username,</span>
       
       
-        <span class='type'>(<tt>Integer</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>The ID of the choice just made</p>
+<p>entered username</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>password,</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>entered password</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>password_confirm,</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>password confirmation (used to make sure the passwords match)</p>
 </div>
       
     </li>
@@ -1649,118 +1754,59 @@
       <pre class="lines">
 
 
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165</pre>
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 133</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 49</span>
 
-<span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/update_game</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>choice</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_path_id'>path_id</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:path_id</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:choice_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_give_item'>give_item</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:give_item</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:choice_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_require_item'>require_item</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:require_item</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:choice_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_dbupdate'><span class='object_link'><a href="#dbupdate-instance_method" title="#dbupdate (method)">dbupdate</a></span></span><span class='lparen'>(</span><span class='symbol'>:user_progress</span><span class='comma'>,</span> <span class='symbol'>:story_progress_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_path_id'>path_id</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/user/new</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_error'>error</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_username'>username</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>username</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_password'>password</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>password</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_password_confirm'>password_confirm</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>password_confirm</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
 
-    <span class='kw'>if</span> <span class='id identifier rubyid_require_item'>require_item</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='kw'>nil</span>
-        <span class='id identifier rubyid_require_amount'>require_amount</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:require_amount</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:choice_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-        <span class='id identifier rubyid_item_amount'>item_amount</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:item_amount</span><span class='comma'>,</span> <span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_require_item'>require_item</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-        <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='id identifier rubyid_item_amount'>item_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='id identifier rubyid_require_amount'>require_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
-
-        <span class='kw'>if</span> <span class='id identifier rubyid_n'>n</span> <span class='op'>==</span> <span class='int'>0</span>
-            <span class='id identifier rubyid_dbdelete'><span class='object_link'><a href="#dbdelete-instance_method" title="#dbdelete (method)">dbdelete</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_require_item'>require_item</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_password'>password</span> <span class='op'>!=</span> <span class='id identifier rubyid_password_confirm'>password_confirm</span>
+        <span class='id identifier rubyid_error'>error</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Passwords don&#39;t match.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_password'>password</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&lt;</span> <span class='int'>6</span>
+        <span class='id identifier rubyid_error'>error</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Password must be at least six characters long.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>else</span> 
+        <span class='kw'>if</span> <span class='id identifier rubyid_username'>username</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span>
+            <span class='id identifier rubyid_error'>error</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Username cannot include spaces.</span><span class='tstring_end'>&quot;</span></span>
         <span class='kw'>else</span>
-            <span class='id identifier rubyid_dbupdate'><span class='object_link'><a href="#dbupdate-instance_method" title="#dbupdate (method)">dbupdate</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='symbol'>:item_amount</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='id identifier rubyid_require_item'>require_item</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+            <span class='id identifier rubyid_user_exist'>user_exist</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:user_id</span><span class='comma'>,</span> <span class='symbol'>:users</span><span class='comma'>,</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='id identifier rubyid_username'>username</span><span class='rparen'>)</span>
+            <span class='kw'>if</span> <span class='id identifier rubyid_user_exist'>user_exist</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+                <span class='id identifier rubyid_dbinsert'><span class='object_link'><a href="#dbinsert-instance_method" title="#dbinsert (method)">dbinsert</a></span></span><span class='lparen'>(</span><span class='symbol'>:users</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:username</span><span class='comma'>,</span> <span class='symbol'>:password_digest</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_username'>username</span><span class='comma'>,</span> <span class='id identifier rubyid_bcrypt'><span class='object_link'><a href="#bcrypt-instance_method" title="#bcrypt (method)">bcrypt</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_password'>password</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+                <span class='id identifier rubyid_error'>error</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user successfully created!</span><span class='tstring_end'>&quot;</span></span>
+            <span class='kw'>else</span>
+                <span class='id identifier rubyid_error'>error</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Username taken.</span><span class='tstring_end'>&quot;</span></span>
+            <span class='kw'>end</span>
         <span class='kw'>end</span>
     <span class='kw'>end</span>
-
-    <span class='kw'>if</span> <span class='id identifier rubyid_give_item'>give_item</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='kw'>nil</span>
-        <span class='id identifier rubyid_give_amount'>give_amount</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:give_amount</span><span class='comma'>,</span> <span class='symbol'>:choices</span><span class='comma'>,</span> <span class='symbol'>:choice_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-        <span class='id identifier rubyid_item_amount'>item_amount</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:item_amount</span><span class='comma'>,</span> <span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_give_item'>give_item</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-        
-        <span class='kw'>if</span> <span class='id identifier rubyid_item_amount'>item_amount</span> <span class='op'>==</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-            <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_dbselect'><span class='object_link'><a href="#dbselect-instance_method" title="#dbselect (method)">dbselect</a></span></span><span class='lparen'>(</span><span class='symbol'>:item</span><span class='comma'>,</span> <span class='symbol'>:item_list</span><span class='comma'>,</span> <span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='id identifier rubyid_give_item'>give_item</span><span class='rparen'>)</span>
-            <span class='id identifier rubyid_dbinsert'><span class='object_link'><a href="#dbinsert-instance_method" title="#dbinsert (method)">dbinsert</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:item_name</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='comma'>,</span> <span class='symbol'>:item_amount</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_give_item'>give_item</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='comma'>,</span> <span class='id identifier rubyid_give_amount'>give_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-        <span class='kw'>else</span>
-            <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='id identifier rubyid_give_amount'>give_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='id identifier rubyid_item_amount'>item_amount</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
-            <span class='id identifier rubyid_dbupdate'><span class='object_link'><a href="#dbupdate-instance_method" title="#dbupdate (method)">dbupdate</a></span></span><span class='lparen'>(</span><span class='symbol'>:inventory</span><span class='comma'>,</span> <span class='symbol'>:item_amount</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='symbol'>:item_id</span><span class='comma'>,</span> <span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='id identifier rubyid_give_item'>give_item</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-        <span class='kw'>end</span>
-    <span class='kw'>end</span>
-    <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/start</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="salt-instance_method">
-  
-    #<strong>salt</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Name of salt</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-11
-12
-13</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'model.rb', line 11</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_salt'>salt</span>
-    <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stark</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span> <span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1772,7 +1818,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Apr 24 18:05:40 2020 by
+  Generated on Thu May  7 08:58:01 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.5.1).
 </div>

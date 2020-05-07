@@ -17,6 +17,11 @@ h1{
     grid-template-columns: 1fr 1fr;
 }
 
+.inventory{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
 .inventory h2{
     text-align: center;
 }
