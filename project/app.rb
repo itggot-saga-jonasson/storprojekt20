@@ -9,6 +9,12 @@ error = ""
 error_message = ""
 result = ""
 
+def loggedin(id)
+    if id.empty?
+        redirect to ("/")
+    end
+end
+
 
 # Start page.
 get("/") do
@@ -75,11 +81,12 @@ end
 
 # Logged in page. 
 get("/start") do
+    loggedin(result)
     user_id = result
-    if user_id.empty?
-        error = "Log in first!"
-        redirect to ("/")
-    end
+    # if user_id.empty?
+    #     error = "Log in first!"
+    #     redirect to ("/")
+    # end
     username = dbselect(:username, :users, :user_id, user_id)[0][0]
     inventory = dbselect([:item_name, :item_id, :item_amount], :inventory, :user_id, user_id)
     progress = dbselect(:story_progress_id, :user_progress, :user_id, user_id)
@@ -118,6 +125,7 @@ end
 
 # Gives user a random item.
 post("/rand_item") do
+    loggedin(result)
     items = dbselect2([:item_id, :item, :description], :item_list,)
     rand_item = items.sample
     if dbselect(:item_amount, :inventory, [:user_id, :item_id], [result, rand_item[0]]).empty?
@@ -133,6 +141,7 @@ end
 # @param [Integer] deleteme, the ID of the item
 # @param [Integer] user_id, the ID of the user
 post("/inventory/delete") do
+    loggedin(result)
     id = params["deleteme"]
     user_id = params["user_id"].to_i
 
@@ -152,15 +161,27 @@ end
 
 # Deletes a select user
 # @param [Integer] deleteuser, The ID of the select user
+# @param [Integer] user_id, the ID of the user deleting the user
 post("/users/delete") do
+    loggedin(result)
     id = params["deleteuser"]
-    dbdelete(:users, :user_id, id)
-    dbdelete(:inventory, :user_id, id)
+    user_id = params["user_id"].to_i
+    admin = dbselect(:admin, :users, :user_id, user_id)[0][0]
 
-    redirect to ("/start")
+    if result[0][0] == user_id
+        if user_id == id or admin == 1
+            dbdelete(:users, :user_id, id)
+            dbdelete(:inventory, :user_id, id)
+
+            redirect to ("/start")
+        end
+    end
+    error_message = "You don't have the authority to make that decision. What are you doing?"
+    redirect to ("/error")
 end
 
 get("/users/edit") do
+    loggedin(result)
 
     slim(:"users/edit", locals:{})
 end
@@ -169,6 +190,7 @@ end
 # Updates story progression after the user makes a choice.
 # @param [Integer] choice, The ID of the choice just made
 post("/game/edit") do
+    loggedin(result)
     id = params["choice"]
     path_id = dbselect(:path_id, :choices, :choice_id, id)
     give_item = dbselect(:give_item, :choices, :choice_id, id)

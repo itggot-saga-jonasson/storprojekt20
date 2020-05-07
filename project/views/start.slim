@@ -85,5 +85,6 @@
                 - if users[i][0] != 1
                     ul = users[i][1]
                     form action="users/delete" method="post"
+                        input type="hidden" name="user_id" value=2
                         button name="deleteuser" type="submit" value=users[i][0] Delete user
                 - i += 1
