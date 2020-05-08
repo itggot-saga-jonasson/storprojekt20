@@ -4,7 +4,7 @@
 Sidan ska kunna presentera scenarion och val till användaren. Olika val leder till olika nya scenarion och utvecklas till en historia de kan följa. Användaren har även tillgång till ett inventory med föremål de kan få av och använda till olika val.
 ## 2. Vyer (visa bildskisser på dina sidor)
 ## 3. Databas med ER-diagram (Bild)
-insert färdigt er-diagram
+![ER](ER-diagram.png)
 https://draw.io
 ## 4. Arkitektur (Beskriv filer och mappar - vad gör/innehåller de?)
 ### Ruby-filer:
