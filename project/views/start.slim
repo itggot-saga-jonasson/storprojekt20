@@ -1,9 +1,11 @@
 .wrapper
 
     h1 = "hello " + username + "!"
-    form action="/users/edit" method="get"
-        button name="id" type="submit" value=user_id Change your user?
+    / form action="/users/:id" method="get"
+        button name=:id type="submit" value=user_id Change your user?
     
+    - route = "/users/" + user_id.to_s + "/edit"
+    a href=route Change your user?
     form action="logout" method="post"
         input type="submit" value="Log out" 
 
@@ -61,9 +63,10 @@
         
             - if admin == 1
                 .item_give
-                    form action="login" method="post"
+                    form action="inventory/update" method="post"
                         input type="number" name="id" placeholder="Item ID"
                         input type="number" name="amount" placeholder="Item amount"
+                        input type="hidden" name="user_id" value=user_id
                         input type="submit" value="Give me some items!" 
                     
                     table
@@ -86,5 +89,6 @@
                     ul = users[i][1]
                     form action="users/delete" method="post"
                         input type="hidden" name="user_id" value=user_id
-                        button name="deleteuser" type="submit" value=users[i][0] Delete user
+                        input type="hidden" name="deleteuser" value=users[i][0]
+                        button type="submit"  Delete user
                 - i += 1

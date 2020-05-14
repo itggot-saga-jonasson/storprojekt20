@@ -7,8 +7,10 @@ require "sqlite3"
 login_attempts = 0
 error = ""
 error_message = ""
+user_edit_message = ""
 result = ""
 
+# Checks that there is a user logged in before doing any requests (is called at the start of every route that requires a user)
 def loggedin(id)
     if id.empty?
         redirect to ("/")
@@ -58,11 +60,12 @@ post("/user/new") do
     username = params["username"]
     password = params["password"]
     password_confirm = params["password_confirm"]
+    # p (password =~ /\d/)
 
     if password != password_confirm
         error = "Passwords don't match."
-    elsif password.length < 6
-        error = "Password must be at least six characters long."
+    elsif password.length < 6 or (password =~ /\d/).nil?
+        error = "Password must be at least six characters long and contain a number."
     else 
         if username.include? " "
             error = "Username cannot include spaces."
@@ -81,6 +84,7 @@ end
 
 # Logged in page. 
 get("/start") do
+    user_edit_message = ""
     loggedin(result)
     user_id = result
     # if user_id.empty?
@@ -137,6 +141,35 @@ post("/rand_item") do
     redirect to ("/start")
 end
 
+post("/inventory/update") do
+    loggedin(result)
+    item_id = params["id"].to_i
+    add_amount = params["amount"].to_i
+    user_id = params["amount"]
+    # p add_amount 
+    # p item_id
+    # p user_id
+
+    item = dbselect([:item_id, :item, :description], :item_list, :item_id, item_id)
+    if item.empty? 
+        redirect to ("/start")
+    else
+        item = item[0]
+
+        if item.empty? == false
+            if dbselect(:item_amount, :inventory, [:user_id, :item_id], [result, item[0]]).empty?
+                dbinsert(:inventory, [:item_id, :item_name, :user_id, :item_amount], [item[0], item[1], result, add_amount])
+            else
+                item_amount = dbselect(:item_amount, :inventory, [:user_id, :item_id], [result, item[0]])
+                dbupdate(:inventory, :item_amount, [:user_id, :item_id], [item_amount[0][0]+add_amount, result, item[0]])
+            end
+        end
+    end
+
+
+    redirect to ("/start")
+end
+
 # Deletes a chosen item from the user's inventory
 # @param [Integer] deleteme, the ID of the item
 # @param [Integer] user_id, the ID of the user
@@ -164,7 +197,7 @@ end
 # @param [Integer] user_id, the ID of the user deleting the user
 post("/users/delete") do
     loggedin(result)
-    id = params["deleteuser"]
+    id = params["deleteuser"].to_i
     user_id = params["user_id"].to_i
     admin = dbselect(:admin, :users, :user_id, user_id)[0][0]
 
@@ -173,17 +206,76 @@ post("/users/delete") do
             dbdelete(:users, :user_id, id)
             dbdelete(:inventory, :user_id, id)
 
-            redirect to ("/start")
+            if user_id == id
+                result = ""
+                error = "User successfully deleted."
+                redirect to ("/")
+            else
+                redirect to ("/start")
+            end
         end
     end
     error_message = "You don't have the authority to make that decision. What are you doing?"
     redirect to ("/error")
 end
 
-get("/users/edit") do
+get("/users/:id/edit") do
+    id = params[:id].to_i
+    user_id = result[0][0].to_i
     loggedin(result)
 
-    slim(:"users/edit", locals:{})
+    if id != user_id
+        error_message = "You're not allowed to access that. What are you doing?"
+        redirect to ("/error")
+    end
+    username = dbselect(:username, :users, :user_id, result)[0][0]
+        user_id = result[0][0]
+        # p user_id
+
+        slim(:"users/edit", locals:{username: username, user_id: id, user_edit_message: user_edit_message})
+    
+end
+
+get '/users/:id/username/edit' do
+    loggedin(result)
+    name = params["user"]
+    user_id = params["user_id"].to_i
+
+    if result[0][0] == user_id
+        dbupdate(:users, :username, :user_id, [name, user_id])
+        user_edit_message = "Username successfully changed!"
+
+        redirect back
+    end
+    error_message = "You don't have the authority to make that decision. What are you doing?"
+    redirect to ("/error")
+  end
+
+get '/users/:id/password/edit' do
+    loggedin(result)
+    password = params["password"]
+    password_confirm = params["password_confirm"]
+    user_id = params["user_id"].to_i
+
+    if result[0][0] == user_id
+        if password == password_confirm
+            if password.length < 6 or (password =~ /\d/).nil?
+                user_edit_message = "Password needs to be at least six characters long, and contain a number."
+                redirect back
+            else
+                dbupdate(:users, :password_digest, :user_id, [bcrypt(password), user_id])
+                user_edit_message = "Password successfully changed!"
+
+                redirect back
+            end
+        else
+            user_edit_message = "Passwords don't match!"
+            redirect back
+        end
+    end
+    error_message = "You don't have the authority to make that decision. What are you doing?"
+    redirect to ("/error")
+
 end
 
 

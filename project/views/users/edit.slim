@@ -1,4 +1,24 @@
-p hello
+.wrapper
+    p = user_edit_message
 
-form action="/start" method="get"
-        button type="submit" Back to the start pls
+    h3 Change your username
+    form action="username/edit" method="get"
+        input type="text" name="user" value=username
+        input type="hidden" name="user_id" value=user_id
+        input type="submit" value="Change!" 
+
+    h3 Change your password
+    form action="password/edit" method="get"
+        input type="password" name="password" placeholder="New password"
+        input type="password" name="password_confirm" placeholder="Confirm new password"
+        input type="hidden" name="user_id" value=user_id
+        input type="submit" value="Change!" 
+
+    h3 Delete your user?
+    form action="./delete" method="post"
+        input type="hidden" name="deleteuser" value=user_id
+        input type="hidden" name="user_id" value=user_id
+        input type="submit" value="Delete my user" 
+
+    form action="/start" method="get"
+            button type="submit" Back to the start pls
