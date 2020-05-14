@@ -173,18 +173,21 @@ end
 
 # Deletes a chosen item from the user's inventory
 # @param [Integer] deleteme, the ID of the item
+# @param [Integer] amount, the number of items that shall be deleted
 # @param [Integer] user_id, the ID of the user
 post("/inventory/delete") do
     loggedin(result)
     id = params["deleteme"]
+    amount = params["amount"].to_i
     user_id = params["user_id"].to_i
+    p amount
 
     if result[0][0] == user_id
         item_amount = dbselect(:item_amount, :inventory, [:item_id, :user_id], [id, result])
-        if item_amount[0][0] == 1
+        if item_amount[0][0] - amount < 1
             dbdelete(:inventory, [:item_id, :user_id], [id, result])
         else
-            dbupdate(:inventory, :item_amount, [:item_id, :user_id], [item_amount[0][0]-1, id, result])
+            dbupdate(:inventory, :item_amount, [:item_id, :user_id], [item_amount[0][0]-amount, id, result])
         end
         redirect to ("/start")
     else
@@ -248,14 +251,18 @@ get '/users/:id/username/edit' do
     user_id = params["user_id"].to_i
 
     if result[0][0] == user_id
-        user_exist = dbselect(:user_id, :users, :username, username)
+        user_exist = dbselect(:user_id, :users, :username, name)
         if user_exist.empty?
             dbupdate(:users, :username, :user_id, [name, user_id])
             user_edit_message = "Username successfully changed!"
 
             redirect back
+        elsif user_exist[0][0] == user_id
+            user_edit_message = "Nothing happened. Because that is already your name."
+            redirect back
         else
             user_edit_message = "username taken!"
+            redirect back
         end
     end
     error_message = "You don't have the authority to make that decision. What are you doing?"
