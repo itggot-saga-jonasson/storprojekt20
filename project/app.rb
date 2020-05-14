@@ -60,7 +60,6 @@ post("/user/new") do
     username = params["username"]
     password = params["password"]
     password_confirm = params["password_confirm"]
-    # p (password =~ /\d/)
 
     if password != password_confirm
         error = "Passwords don't match."
@@ -87,10 +86,6 @@ get("/start") do
     user_edit_message = ""
     loggedin(result)
     user_id = result
-    # if user_id.empty?
-    #     error = "Log in first!"
-    #     redirect to ("/")
-    # end
     username = dbselect(:username, :users, :user_id, user_id)[0][0]
     inventory = dbselect([:item_name, :item_id, :item_amount], :inventory, :user_id, user_id)
     progress = dbselect(:story_progress_id, :user_progress, :user_id, user_id)
@@ -141,29 +136,35 @@ post("/rand_item") do
     redirect to ("/start")
 end
 
+# Updates inventory
+# @param [Integer] id, ID of the item added
+# @param [Integer] amount, number of items to add
+# @param [Integer] user_id, ID of the user recieving the items 
 post("/inventory/update") do
     loggedin(result)
     item_id = params["id"].to_i
     add_amount = params["amount"].to_i
-    user_id = params["amount"]
-    # p add_amount 
-    # p item_id
-    # p user_id
+    user_id = params["user_id"].to_i
 
-    item = dbselect([:item_id, :item, :description], :item_list, :item_id, item_id)
-    if item.empty? 
-        redirect to ("/start")
-    else
-        item = item[0]
+    if result[0][0] == user_id
+        item = dbselect([:item_id, :item, :description], :item_list, :item_id, item_id)
+        if item.empty? 
+            redirect to ("/start")
+        else
+            item = item[0]
 
-        if item.empty? == false
-            if dbselect(:item_amount, :inventory, [:user_id, :item_id], [result, item[0]]).empty?
-                dbinsert(:inventory, [:item_id, :item_name, :user_id, :item_amount], [item[0], item[1], result, add_amount])
-            else
-                item_amount = dbselect(:item_amount, :inventory, [:user_id, :item_id], [result, item[0]])
-                dbupdate(:inventory, :item_amount, [:user_id, :item_id], [item_amount[0][0]+add_amount, result, item[0]])
+            if item.empty? == false
+                if dbselect(:item_amount, :inventory, [:user_id, :item_id], [result, item[0]]).empty?
+                    dbinsert(:inventory, [:item_id, :item_name, :user_id, :item_amount], [item[0], item[1], result, add_amount])
+                else
+                    item_amount = dbselect(:item_amount, :inventory, [:user_id, :item_id], [result, item[0]])
+                    dbupdate(:inventory, :item_amount, [:user_id, :item_id], [item_amount[0][0]+add_amount, result, item[0]])
+                end
             end
         end
+    else
+        error_message = "You don't have the authority to make that decision. What are you doing?"
+        redirect to ("/error")
     end
 
 
@@ -219,10 +220,12 @@ post("/users/delete") do
     redirect to ("/error")
 end
 
+# Page where a user can edit their user
+# @param [Integer] :id, the user's ID
 get("/users/:id/edit") do
+    loggedin(result)
     id = params[:id].to_i
     user_id = result[0][0].to_i
-    loggedin(result)
 
     if id != user_id
         error_message = "You're not allowed to access that. What are you doing?"
@@ -236,21 +239,33 @@ get("/users/:id/edit") do
     
 end
 
+# Updates a user's name
+# @param [String] name, new name
+# @param [Integer] user_id, the ID of the user
 get '/users/:id/username/edit' do
     loggedin(result)
     name = params["user"]
     user_id = params["user_id"].to_i
 
     if result[0][0] == user_id
-        dbupdate(:users, :username, :user_id, [name, user_id])
-        user_edit_message = "Username successfully changed!"
+        user_exist = dbselect(:user_id, :users, :username, username)
+        if user_exist.empty?
+            dbupdate(:users, :username, :user_id, [name, user_id])
+            user_edit_message = "Username successfully changed!"
 
-        redirect back
+            redirect back
+        else
+            user_edit_message = "username taken!"
+        end
     end
     error_message = "You don't have the authority to make that decision. What are you doing?"
     redirect to ("/error")
   end
 
+# Updates a user's password
+# @param [String] password, new password
+# @param [String] password_confirm, password confirmation (used to make sure the passwords match)
+# @param [Integer] user_id, the ID of the user
 get '/users/:id/password/edit' do
     loggedin(result)
     password = params["password"]
@@ -316,6 +331,7 @@ post("/game/edit") do
     redirect to ("/start")
 end
 
+# Error page. Shown when the user making a request doesn't match the user affected by the request.
 get("/error") do
     result = ""
 
